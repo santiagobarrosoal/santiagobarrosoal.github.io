@@ -1,0 +1,252 @@
+body {
+  font-family: 'Noto Sans', sans-serif;
+}
+
+.custom-comparison {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start; /* Ensures the top alignment of children */
+}
+
+.custom-column {
+  display: flex;
+  flex-direction: column; /* Makes the inside of each column behave in a columnar fashion */
+  justify-content: space-between; /* This will push the content to the top and bottom edges of the column */
+  flex-basis: 48%; 
+  border: 1px solid #d1d1d1;
+  border-radius: 8px;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.original-codebase.custom-column {
+  border-right: 1px dashed #d1d1d1;
+}
+
+.adaptations.custom-column {
+  border-left: 1px dashed #d1d1d1;
+}
+
+.custom-title, p, .code-snippet {
+  margin-bottom: 20px; /* Or adjust as needed */
+}
+
+.code-snippet {
+  margin-top: auto; /* Push the code block to the bottom of its container */
+  font-family: "Courier New", Courier, monospace; 
+  background-color: #f7f7f7;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  overflow-x: auto;
+}
+.custom-comparison {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Creates two equally wide columns */
+  gap: 2%; /* Gap between columns */
+}
+
+.custom-column {
+  display: grid;
+  grid-template-rows: auto 1fr; /* Divides the column into a part for the text and a part for the code */
+  padding: 20px;
+  border: 1px solid #d1d1d1;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.code-snippet {
+  align-self: start; /* Aligns the code block to the top of its grid cell */
+  font-family: "Courier New", Courier, monospace; 
+  background-color: #f7f7f7;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  overflow-x: auto;
+}
+
+.footer .icon-link {
+    font-size: 25px;
+    color: #000;
+}
+
+.link-block a {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.dnerf {
+  font-variant: small-caps;
+}
+
+
+.teaser .hero-body {
+  padding-top: 0;
+  padding-bottom: 3rem;
+}
+
+.teaser {
+  font-family: 'Google Sans', sans-serif;
+}
+
+.original-codebase {
+  background-color: #f5f5f5;
+  /* ... other styles ... */
+}
+
+.adaptations {
+  background-color: #e5f4ff;
+  /* ... other styles ... */
+}
+
+.code-snippet {
+  /* ... existing styles ... */
+  position: relative;
+}
+
+.code-highlight {
+  background-color: #fcf8e3;  /* a light yellow background for highlighting */
+  font-weight: bold;
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  right: -15px;  /* Adjust as needed based on container gap */
+  width: 0;
+  height: 0;
+  border-left: 15px solid currentColor;
+  border-top: 15px solid transparent;
+  border-bottom: 15px solid transparent;
+}
+
+
+.publication-title {
+}
+
+.publication-banner {
+  max-height: parent;
+
+}
+
+.publication-banner video {
+  position: relative;
+  left: auto;
+  top: auto;
+  transform: none;
+  object-fit: fit;
+}
+
+.publication-header .hero-body {
+}
+
+.publication-title {
+    font-family: 'Google Sans', sans-serif;
+}
+
+.publication-authors {
+    font-family: 'Google Sans', sans-serif;
+}
+
+.publication-venue {
+    color: #555;
+    width: fit-content;
+    font-weight: bold;
+}
+
+.publication-awards {
+    color: #ff3860;
+    width: fit-content;
+    font-weight: bolder;
+}
+
+.publication-authors {
+}
+
+.publication-authors a {
+   color: hsl(204, 86%, 53%) !important;
+}
+
+.publication-authors a:hover {
+    text-decoration: underline;
+}
+
+.author-block {
+  display: inline-block;
+}
+
+.publication-banner img {
+}
+
+.publication-authors {
+  /*color: #4286f4;*/
+}
+
+.publication-video {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%;
+
+    overflow: hidden;
+    border-radius: 10px !important;
+}
+
+.publication-video iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.publication-body img {
+}
+
+.results-carousel {
+  overflow: hidden;
+}
+
+.results-carousel .item {
+  margin: 5px;
+  overflow: hidden;
+  border: 1px solid #bbb;
+  border-radius: 10px;
+  padding: 0;
+  font-size: 0;
+}
+
+.results-carousel video {
+  margin: 0;
+}
+
+
+.interpolation-panel {
+  background: #f5f5f5;
+  border-radius: 10px;
+}
+
+.interpolation-panel .interpolation-image {
+  width: 100%;
+  border-radius: 5px;
+}
+
+.interpolation-video-column {
+}
+
+.interpolation-panel .slider {
+  margin: 0 !important;
+}
+
+.interpolation-panel .slider {
+  margin: 0 !important;
+}
+
+#interpolation-image-wrapper {
+  width: 100%;
+}
+#interpolation-image-wrapper img {
+  border-radius: 5px;
+}

@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+    content="Interpolating positional encodings, re-scaling them to support arbitrary resolutions ontop of a pretrained MAE-VQGAN architecture designed for 224x224 images.">
+  <meta name="keywords" content="Visual Prompting, MAE-VQGAN, MAE">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rescaled Visual Prompting: Adapting a pre-trained MAE-VQGAN model to support arbitrary resolutions</title>
+
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+
+<body>
+
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+    <div class="navbar-menu">
+      <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+        <a class="navbar-item" href="https://alhojel.github.io">
+          <span class="icon">
+            <i class="fas fa-home"></i>
+          </span>
+        </a>
+      </div>
+
+    </div>
+  </nav>
+
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">Rescaled Visual Prompting: Adapting a pre-trained MAE-VQGAN model
+              to support arbitrary resolutions</h1>
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">
+                <a href="https://alhojel.github.io">Alberto Hojel</a><sup>1</sup>,</span>
+            </div>
+
+            <div class="is-size-5 publication-authors">
+              <span class="author-block"><sup>1</sup>University of California: Berkeley</span>
+            </div>
+
+            <div class="column has-text-centered">
+              <div class="publication-links">
+                <!-- PDF Link. -->
+                <span class="link-block">
+                  <a href="https://yossigandelsman.github.io/visual_prompt/"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                    </span>
+                    <span>Original Project</span>
+                  </a>
+                </span>
+                <span class="link-block">
+                  <a href="https://arxiv.org/abs/2209.00647" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                    </span>
+                    <span>Original arXiv</span>
+                  </a>
+                </span>
+
+                <!-- Code Link. -->
+                <span class="link-block">
+                  <a href="https://github.com/amirbar/visual_prompting"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Original Code</span>
+                  </a>
+                </span>
+                <!-- Dataset Link. -->
+                <span class="link-block">
+                  <a href="https://colab.research.google.com/drive/1wI7Cv4nz2oOkSIYjHIMwykh9z_bxImFw?usp=sharing" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Modified Code</span>
+                  </a>
+                </span>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="hero teaser">
+    <div class="container is-max-desktop">
+      <div class="hero-body">
+        <div class="columns is-vcentered interpolation-panel"  style="justify-content: center;">
+          <div class="column is-3 has-text-centered" style="width: 50%; justify-content: center;">
+            <img src="./static/gifs/output_513.gif" class="interpolation-image" alt="Interpolate start reference image." style="max-width: 100%; max-height: 100%;">
+          </div>
+        </div>
+       
+        <h2 class="subtitle has-text-centered">
+          <span class="dnerf">RescaledVisualPrompting</span> turns the pretrained MAE-VQGAN model from the Visual
+          Prompting paper into a generalized model that can support arbitrary resolutions by interpolating positional
+          embeddings.
+        </h2>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="section">
+    <div class="container is-max-desktop">
+      <!-- Abstract. -->
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">Abstract</h2>
+          <div class="content has-text-justified">
+            <p>
+              <a href="https://yossigandelsman.github.io/visual_prompt/">Bar et. al.</a> explore the capabilities of
+              image inpainging models to leverage in-context examples for
+              generalized task completetion. Following the recent successes of prompt engineering in the domain of large
+              language models (LLMs), it has become clear that in-context learning allows language models to generalize
+              their functoinality and prove useful in a wide variety of tasks (<a
+                href="https://arxiv.org/abs/2005.14165">Language Models are Few-Shot Learners</a>). In their paper <a
+                href="https://yossigandelsman.github.io/visual_prompt/">Visual Prompting via Image Inpainting</a>, the
+              authors attempt to apply a similar technique in the domain of vision.
+            </p>
+            <p>
+              By leveraging a dataset comprised of figures from computer vision papers hosted on ArXiV, they trained a
+              masked auto-encoder architecture minimize the cross entropy loss between the decoder and a pre-trained
+              VQGAN encoder. Essentially, this MAE-VQGAN leverages the pretrained VQGAN codebook to inpaint over the
+              masked portions of the image.
+            </p>
+            <p>
+              However, this MAE-VQGAN architecture, trained with 8 V100 GPUs, was configured for an input size of
+              224x224 pixels. Hence, when it comes to employ this model for inference on the visual prompting tasks like
+              segmentation, colorization, inpainting, and edge detection, we must transform the inputs to this specific
+              resolution.
+            </p>
+            <p>
+              The objective of this project is to implement an adaptation ontop of the pre-trained mae_vit_large_patch16
+              (trained on the CVF+IN datasets for 3400 epochs) from Bar et. al. to allow for inference across any
+              arbitrary resolution. As will be described below, this was achieved by interpolating the positional
+              embeddings of the pre-trained model to the particular resolution chosen for inference on the fly. This had
+              certain implications on the rest of the codebase that will be detailed below.
+            </p>
+            <p>
+              Finally, an analysis of the mean intersection-over-union of the segmentation task was performed across a
+              variety of resolutions to benchmark their performance. It was found that the model performed best at the
+              original resolution of 224x224, but that it was able to generalize in some small cases to resolutions such
+              as 448x448.
+            </p>
+          </div>
+        </div>
+      </div>
+      <!--/ Abstract. -->
+
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container is-max-desktop">
+      <!-- Animation. -->
+      <div class="columns is-centered">
+        <div class="column is-full-width">
+          <h2 class="title is-3">Results</h2>
+
+          <!-- Interpolating. -->
+          <h3 class="title is-4">Image Input Rescaling</h3>
+
+          <div class="content has-text-justified">
+            <p>
+              The following graph demonstrates how the intersection-over-union metric across the foreground segmentation task of the Pascal-5i dataset changes as the input resolution is varied. The model was trained on 224x224 images, and the results are shown for the original resolution, as well as for 448x448 and 336x336.
+            </p>
+          </div>
+
+          <div class="columns is-vcentered interpolation-panel">
+            <div class="column is-3 has-text-centered" style="width: 100%;">
+              <img src="./static/images/results.png" class="interpolation-image" 
+                alt="Interpolate start reference image." />
+            </div>
+          </div>
+          <br />
+
+          <div class="content has-text-justified">
+            <p>
+              The following animations demonstrate the how the output of the model changes based on the input resolution.
+            </p>
+          </div>
+
+          <div class="columns is-vcentered interpolation-panel">
+            <div class="column is-3 has-text-centered" style="width: 33%;">
+              <img src="./static/gifs/output_213.gif" class="interpolation-image" 
+                alt="Interpolate start reference image." />
+            </div>
+            <div class="column is-3 has-text-centered" style="width: 33%;">
+              <img src="./static/gifs/output_509.gif" class="interpolation-image" 
+                alt="Interpolate start reference image." />
+            </div>
+            <div class="column is-3 has-text-centered" style="width: 33%;">
+              <img src="./static/gifs/output_516.gif" class="interpolation-image"
+                alt="Interpolation end reference image." />
+            </div>
+          </div>
+          <br />
+          <div class="columns is-vcentered interpolation-panel">
+            <div class="column is-3 has-text-centered" style="width: 50%;">
+              <img src="./static/gifs/output_500.gif" class="interpolation-image" 
+                alt="Interpolate start reference image." />
+            </div>
+            <div class="column is-3 has-text-centered" style="width: 50%;">
+              <img src="./static/gifs/output_513.gif" class="interpolation-image" 
+                alt="Interpolate start reference image." />
+            </div>
+          </div>
+          <br />
+          
+          <div class="content has-text-justified">
+            <p>
+              Here, on the left we visualize the original image inpaining model in action. On the right side, we visualize the adapted model in action. The adapted model is able to support arbitrary resolutions, but it is clear that the original model performs better at the original resolution of 224x224.
+            </p>
+          </div>
+          <div class="columns is-vcentered interpolation-panel">
+            <div class="column is-3 has-text-centered" style="width: 33%;">
+              <img src="./static/images/224_8.png" class="interpolation-image" 
+                alt="Interpolate start reference image." />
+              <p>224x224</p>
+            </div>
+            <div class="column is-3 has-text-centered" style="width: 33%;">
+              <img src="./static/images/original_8.png" class="interpolation-image" 
+                alt="Interpolate start reference image." />
+              <p>Objective</p>
+            </div>
+            <div class="column is-3 has-text-centered" style="width: 33%;">
+              <img src="./static/images/448_8.png" class="interpolation-image"
+                alt="Interpolation end reference image." />
+              <p class="is-bold">448x448</p>
+            </div>
+          </div>
+          <br />
+          <div class="columns is-vcentered interpolation-panel">
+            <div class="column is-3 has-text-centered" style="width: 50%;">
+              <img src="./static/images/224_1.png" class="interpolation-image" 
+                alt="Interpolate start reference image." />
+              <p>224x224</p>
+            </div>
+            
+            <div class="column is-3 has-text-centered" style="width: 50%;">
+              <img src="./static/images/448_1.png" class="interpolation-image"
+                alt="Interpolation end reference image." />
+              <p class="is-bold">448x448</p>
+            </div>
+          </div>
+          <br />
+          <div class="columns is-vcentered interpolation-panel">
+            <div class="column is-3 has-text-centered" style="width: 50%;">
+              <img src="./static/images/224_2.png" class="interpolation-image" 
+                alt="Interpolate start reference image." />
+              <p>224x224</p>
+            </div>
+            
+            <div class="column is-3 has-text-centered" style="width: 50%;">
+              <img src="./static/images/448_2.png" class="interpolation-image"
+                alt="Interpolation end reference image." />
+              <p class="is-bold">448x448</p>
+            </div>
+          </div>
+          <br />
+          <div class="columns is-vcentered interpolation-panel">
+            <div class="column is-3 has-text-centered" style="width: 50%;">
+              <img src="./static/images/224_3.png" class="interpolation-image" 
+                alt="Interpolate start reference image." />
+              <p>224x224</p>
+            </div>
+            
+            <div class="column is-3 has-text-centered" style="width: 50%;">
+              <img src="./static/images/448_3.png" class="interpolation-image"
+                alt="Interpolation end reference image." />
+              <p class="is-bold">448x448</p>
+            </div>
+          </div>
+          <br />
+          <div class="columns is-vcentered interpolation-panel">
+            <div class="column is-3 has-text-centered" style="width: 50%;">
+              <img src="./static/images/224_4.png" class="interpolation-image" 
+                alt="Interpolate start reference image." />
+              <p>224x224</p>
+            </div>
+            
+            <div class="column is-3 has-text-centered" style="width: 50%;">
+              <img src="./static/images/448_4.png" class="interpolation-image"
+                alt="Interpolation end reference image." />
+              <p class="is-bold">448x448</p>
+            </div>
+          </div>
+          <br />
+          <div class="columns is-vcentered interpolation-panel">
+            <div class="column is-3 has-text-centered" style="width: 50%;">
+              <img src="./static/images/224_5.png" class="interpolation-image" 
+                alt="Interpolate start reference image." />
+              <p>224x224</p>
+            </div>
+            
+            <div class="column is-3 has-text-centered" style="width: 50%;">
+              <img src="./static/images/448_5.png" class="interpolation-image"
+                alt="Interpolation end reference image." />
+              <p class="is-bold">448x448</p>
+            </div>
+          </div>
+          <br />
+          <div class="columns is-vcentered interpolation-panel">
+            <div class="column is-3 has-text-centered" style="width: 50%;">
+              <img src="./static/images/224_6.png" class="interpolation-image" 
+                alt="Interpolate start reference image." />
+              <p>224x224</p>
+            </div>
+            
+            <div class="column is-3 has-text-centered" style="width: 50%;">
+              <img src="./static/images/448_6.png" class="interpolation-image"
+                alt="Interpolation end reference image." />
+              <p class="is-bold">448x448</p>
+            </div>
+          </div>
+          <br />
+          <div class="columns is-vcentered interpolation-panel">
+            <div class="column is-3 has-text-centered" style="width: 50%;">
+              <img src="./static/images/224_7.png" class="interpolation-image" 
+                alt="Interpolate start reference image." />
+              <p>224x224</p>
+            </div>
+            
+            <div class="column is-3 has-text-centered" style="width: 50%;">
+              <img src="./static/images/488_7.png" class="interpolation-image"
+                alt="Interpolation end reference image." />
+              <p class="is-bold">448x448</p>
+            </div>
+          </div>
+          <br />
+          <!--/ Interpolating. -->
+
+        </div>
+      </div>
+      <!--/ Animation. -->
+
+    </div>
+  </section>
+  <section class="section">
+    <div class="container is-max-desktop custom-container">
+
+      <h2 class="title is-3">Codebase Changes</h2>
+      <p>In essence, the changes implemented to support for arbitrary resolution inputs while still leveraging the pretrained model weights came down to a single crux, the positional embeddings. Because the original model was trained on patches the size of 16x16 pixels, I decided to keep that constant. The original model takes in 14x14 patches of 16x16 pixels (total of 224x224 pixels). As part of its innerworkings, it injects positional encodings for the ViT encoder / decoder to be able to differentiate the individual location of the patches. This was where most of the work was done. I managed to find, within an implementation of the MAE architecture by Meta AI, a function that allows for the interpolation of positional embeddings from size A to size B. By leveraging this function, I was able to interpolate the positional embeddings matrix from a dim=1 size of 196 to whichever size (784 for input image resolution of 448 because num_patches = 448/16 = 28 -> 28*28 = 784). Other than this main architectural change, the rest of the work was in finding places where hardcoded values where used. This results in many changes to the utils functions, and porper support to allow for the propagation of function parameters throughout the necessary places. The model could then be leveraged as usual.</p>
+      <div class="custom-comparison">
+        <div class="original-codebase custom-column">
+          <h2 class="title is-3 custom-title">Original Codebase</h2>
+          <p>
+            This codebase is the original one presented by Bar et. al. in their paper <a
+              href="https://yossigandelsman.github.io/visual_prompt/">Visual Prompting via Image Inpainting</a>.
+          </p>
+
+        </div>
+        <div class="adaptations custom-column">
+          <h2 class="title is-3 custom-title">Adaptations Performed</h2>
+          <p>
+            In order to support arbitrary resolutions, the following code changes were implemented. Keep in
+            mind, these adaptations provide support for the evaluation of the model on the segmentation task.
+            Further adaptations must be applied to support more functionalities.
+          </p>
+
+        </div>
+      </div>
+
+    </div>
+    <hr>
+
+    <div class="container is-max-desktop custom-container", style="max-width: 1460px;">
+
+      <h2 class="title is-3">visual_prompting/evaluate/mae_utils.py</h2>
+      <div class="custom-comparison">
+        <div class="original-codebase custom-column">
+          <pre class="code-snippet">
+def fill_to_full(arr):
+    new_arr = copy.deepcopy(arr)
+    if isinstance(new_arr, np.ndarray):
+        new_arr = list(new_arr)
+    for i in range(<span class="code-highlight">196</span>):
+        if i not in new_arr:
+            new_arr.append(i)
+    return torch.tensor(new_arr)[np.newaxis, ]
+            </pre>
+        </div>
+        <div class="adaptations custom-column">
+          <pre class="code-snippet">
+def fill_to_full(arr, <span class="code-highlight">patch_count</span>):
+    new_arr = copy.deepcopy(arr)
+    if isinstance(new_arr, np.ndarray):
+        new_arr = list(new_arr)
+    for i in range(<span class="code-highlight">patch_count</span>):
+        if i not in new_arr:
+            new_arr.append(i)
+    return torch.tensor(new_arr)[np.newaxis, ]
+            </pre>
+        </div>
+      </div>
+      <div class="custom-comparison">
+        <div class="original-codebase custom-column">
+          <pre class="code-snippet">
+def obtain_values_from_mask(mask: np.ndarray):
+  if mask.shape == (14, 14):
+      return list(mask.flatten().nonzero()[0])
+  assert mask.shape == (224, 224)
+  counter = 0
+  values = []
+  for i in range(0, 224, 16):
+      for j in range(0, 224, 16):
+          if np.sum(mask[i:i+16, j:j+16]) == 16 ** 2:
+              values.append(counter)
+          counter += 1
+  return values
+            </pre>
+        </div>
+        <div class="adaptations custom-column">
+          <pre class="code-snippet">
+def obtain_values_from_mask(mask: np.ndarray, img_size, patch_size):
+  if mask.shape == (int(img_size//patch_size), int(img_size//patch_size)):
+      return list(mask.flatten().nonzero()[0])
+  assert mask.shape == (img_size, img_size)
+  counter = 0
+  values = []
+  for i in range(0, img_size, patch_size):
+      for j in range(0, img_size, patch_size):
+          if np.sum(mask[i:i+patch_size, j:j+patch_size]) == patch_size ** 2:
+              values.append(counter)
+          counter += 1
+  return values
+            </pre>
+        </div>
+      </div>
+
+
+
+      <div class="custom-comparison">
+        <div class="original-codebase custom-column">
+          <pre class="code-snippet">
+def generate_mask_for_evaluation():
+    mask = np.zeros((14,14))
+    mask[:7] = 1
+    mask[:, :7] = 1
+    mask = obtain_values_from_mask(mask)
+    len_keep = len(mask)
+    return fill_to_full(mask), len_keep
+            </pre>
+        </div>
+        <div class="adaptations custom-column">
+          <pre class="code-snippet">
+def generate_mask_for_evaluation(img_size, patch_size):
+    mask = np.zeros((int(img_size//patch_size), int(img_size//patch_size)))
+    mask[:int(img_size//patch_size//2)] = 1
+    mask[:, : int(img_size//patch_size//2)] = 1
+    mask = obtain_values_from_mask(mask, img_size, patch_size)
+    len_keep = len(mask)
+    return fill_to_full(mask, (img_size//patch_size)**2), len_keep
+            </pre>
+        </div>
+      </div>
+
+      <div class="custom-comparison">
+        <div class="original-codebase custom-column">
+          <pre class="code-snippet">
+@torch.no_grad()
+def generate_image(orig_image, model, ids_shuffle, len_keep: int, device: str = 'cpu'):
+    """ids_shuffle is [bs, 196]"""
+    mask, orig_image, x = generate_raw_prediction(device, ids_shuffle, len_keep, model, orig_image)
+    num_patches = 14
+    y = x.argmax(dim=-1)
+    im_paste, mask, orig_image = decode_raw_predicion(mask, model, num_patches, orig_image, y)
+    return orig_image, im_paste[0], mask
+            </pre>
+        </div>
+        <div class="adaptations custom-column">
+          <pre class="code-snippet">
+@torch.no_grad()
+def generate_image(orig_image, model, ids_shuffle, len_keep: int,  img_size, patch_size, device: str = 'cpu'):
+    """ids_shuffle is [bs, 196]"""
+
+    mask, orig_image, x = generate_raw_prediction(device, ids_shuffle, len_keep, model, orig_image)
+    num_patches = img_size // patch_size
+    y = x.argmax(dim=-1)
+    im_paste, mask, orig_image = decode_raw_predicion(mask, model, num_patches, orig_image, y, img_size)
+    return orig_image, im_paste[0], mask
+            </pre>
+        </div>
+      </div>
+
+
+      <div class="custom-comparison">
+        <div class="original-codebase custom-column">
+          <pre class="code-snippet">
+def decode_raw_predicion(mask, model, num_patches, orig_image, y):
+    y = model.vae.quantize.get_codebook_entry(y.reshape(-1),
+                                              [y.shape[0], y.shape[-1] // num_patches, y.shape[-1] // num_patches, -1])
+    y = model.vae.decode(y)
+    # plt.figure(); plt.imshow(y[0].permute(1,2,0)); plt.show()
+    y = F.interpolate(y, size=(224, 224), mode='bilinear').permute(0, 2, 3, 1)
+    y = torch.clip(y * 255, 0, 255).int().detach().cpu()
+    # visualize the mask
+    mask = mask.unsqueeze(-1).repeat(1, 1, model.patch_embed.patch_size[0] ** 2 * 3)
+    mask = model.unpatchify(mask)  # 1 is removing, 0 is keeping
+    mask = torch.einsum('nchw->nhwc', mask).detach().cpu()
+    orig_image = torch.einsum('nchw->nhwc', orig_image)
+    orig_image = (
+        torch.clip((orig_image[0].cpu().detach() * imagenet_std + imagenet_mean) * 255, 0, 255).int()).unsqueeze(0)
+    # MAE reconstruction pasted with visible patches
+    im_paste = orig_image * (1 - mask) + y * mask
+    return im_paste, mask, orig_image
+
+            </pre>
+        </div>
+        <div class="adaptations custom-column">
+          <pre class="code-snippet">
+def decode_raw_predicion(mask, model, num_patches, orig_image, y, img_size):
+    y = model.vae.quantize.get_codebook_entry(y.reshape(-1),
+                                              [y.shape[0], y.shape[-1] // num_patches, y.shape[-1] // num_patches, -1])
+    y = model.vae.decode(y)
+    # plt.figure(); plt.imshow(y[0].permute(1,2,0)); plt.show()
+    y = F.interpolate(y, size=(img_size, img_size), mode='bilinear').permute(0, 2, 3, 1)
+    y = torch.clip(y * 255, 0, 255).int().detach().cpu()
+    # visualize the mask
+    mask = mask.unsqueeze(-1).repeat(1, 1, model.patch_embed.patch_size[0] ** 2 * 3)
+    mask = model.unpatchify(mask)  # 1 is removing, 0 is keeping
+    mask = torch.einsum('nchw->nhwc', mask).detach().cpu()
+    orig_image = torch.einsum('nchw->nhwc', orig_image)
+    orig_image = (
+        torch.clip((orig_image[0].cpu().detach() * imagenet_std + imagenet_mean) * 255, 0, 255).int()).unsqueeze(0)
+    # MAE reconstruction pasted with visible patches
+    im_paste = orig_image * (1 - mask) + y * mask
+    return im_paste, mask, orig_image
+            </pre>
+        </div>
+      </div>
+
+      <div class="custom-comparison">
+        <div class="original-codebase custom-column">
+          <pre class="code-snippet">
+def prepare_model(chkpt_dir, arch='mae_vit_large_patch16', device='cpu'):
+    # build model
+    model = getattr(models_mae, arch)()
+    # load model
+    checkpoint = torch.load(chkpt_dir, map_location='cpu')
+    msg = model.load_state_dict(checkpoint['model'], strict=False)
+    print(msg)
+    model.to(device)
+    return model
+            </pre>
+        </div>
+        <div class="adaptations custom-column">
+          <pre class="code-snippet">
+def prepare_model(chkpt_dir, arch='mae_vit_large_patch16', device='cpu', resolution=224, patches=16):
+    # build model
+    model = getattr(models_mae, arch)(img_size=resolution)
+    # load model
+    checkpoint = torch.load(chkpt_dir, map_location='cpu')
+
+    print("Load pre-trained checkpoint")
+    checkpoint_model = checkpoint['model']
+    state_dict = model.state_dict()
+    for k in ['head.weight', 'head.bias']:
+        if k in checkpoint_model and checkpoint_model[k].shape != state_dict[k].shape:
+            print(f"Removing key {k} from pretrained checkpoint")
+            del checkpoint_model[k]
+
+    # interpolate position embedding
+    interpolate_pos_embed(model, checkpoint_model, key="pos_embed")
+    interpolate_pos_embed(model, checkpoint_model, key="decoder_pos_embed")
+
+    # load pre-trained model
+    msg = model.load_state_dict(checkpoint_model, strict=False)
+    print(msg)
+
+
+    model.to(device)
+    return model
+            </pre>
+        </div>
+      </div>
+
+
+      <div class="custom-comparison">
+        <div class="original-codebase custom-column">
+          <pre class="code-snippet">
+New function
+            </pre>
+        </div>
+        <div class="adaptations custom-column">
+          <pre class="code-snippet">
+# --------------------------------------------------------
+# Interpolate position embeddings for high-resolution
+# References:
+# DeiT: https://github.com/facebookresearch/deit
+# --------------------------------------------------------
+def interpolate_pos_embed(model, checkpoint_model, key="pos_embed"):
+    if key in checkpoint_model:
+        pos_embed_checkpoint = checkpoint_model[key]
+        embedding_size = pos_embed_checkpoint.shape[-1]
+        num_patches = model.patch_embed.num_patches
+        num_extra_tokens = model.decoder_pos_embed.shape[-2] - num_patches
+        # height (== width) for the checkpoint position embedding
+        orig_size = int((pos_embed_checkpoint.shape[-2] - num_extra_tokens) ** 0.5)
+        # height (== width) for the new position embedding
+        new_size = int(num_patches ** 0.5)
+        # class_token and dist_token are kept unchanged
+        if orig_size != new_size:
+            print("Position interpolate from %dx%d to %dx%d" % (orig_size, orig_size, new_size, new_size))
+            extra_tokens = pos_embed_checkpoint[:, :num_extra_tokens]
+            # only the position tokens are interpolated
+            pos_tokens = pos_embed_checkpoint[:, num_extra_tokens:]
+            pos_tokens = pos_tokens.reshape(-1, orig_size, orig_size, embedding_size).permute(0, 3, 1, 2)
+            pos_tokens = torch.nn.functional.interpolate(
+                pos_tokens, size=(new_size, new_size), mode='bicubic', align_corners=False)
+            pos_tokens = pos_tokens.permute(0, 2, 3, 1).flatten(1, 2)
+            new_pos_embed = torch.cat((extra_tokens, pos_tokens), dim=1)
+            checkpoint_model[key] = new_pos_embed
+            </pre>
+        </div>
+      </div>
+
+
+      
+    </div>
+
+
+    <div class="container is-max-desktop custom-container", style="max-width: 1460px;">
+
+      <h2 class="title is-3">visual_prompting/evaluate/segmentation_utils.py</h2>
+      
+
+
+      <div class="custom-comparison">
+        <div class="original-codebase custom-column">
+          <pre class="code-snippet"> 
+def calculate_metric(args, target, ours, fg_color=WHITE, bg_color=BLACK):
+    # Crop the right area:
+    target = target[113:, 113:]
+    ours = ours[113:, 113:]
+    return _calc_metric(ours, target, fg_color, bg_color)
+            </pre>
+        </div>
+        <div class="adaptations custom-column">
+          <pre class="code-snippet">
+def calculate_metric(args, target, ours, img_size, fg_color=WHITE, bg_color=BLACK):
+    # Crop the right area:
+    target = target[(img_size//2) + 1:, (img_size//2) + 1:]
+    ours = ours[(img_size//2) + 1:, (img_size//2) + 1:]
+    return _calc_metric(ours, target, fg_color, bg_color)
+            </pre>
+        </div>
+      </div>
+
+
+      
+    </div>
+
+    <div class="container is-max-desktop custom-container", style="max-width: 1460px;">
+
+      <h2 class="title is-3">visual_prompting/evaluate/evaluate_segmentation.py</h2>
+      
+
+
+      <div class="custom-comparison">
+        <div class="original-codebase custom-column">
+          <pre class="code-snippet"> 
+def _generate_result_for_canvas(args, model, canvas):
+    """canvas is already in the right range."""
+    ids_shuffle, len_keep = generate_mask_for_evaluation()
+    _, im_paste, _ = generate_image(canvas.unsqueeze(0).to(args.device), model, ids_shuffle.to(args.device),
+                                    len_keep, device=args.device)
+    canvas = torch.einsum('chw->hwc', canvas)
+    canvas = torch.clip((canvas.cpu().detach() * imagenet_std + imagenet_mean) * 255, 0, 255).int().numpy()
+    assert canvas.shape == im_paste.shape, (canvas.shape, im_paste.shape)
+    return np.uint8(canvas), np.uint8(im_paste)
+
+
+def evaluate(args):
+    with open(os.path.join(args.output_dir, 'log.txt'), 'w') as log:
+        log.write(str(args) + '\n')
+    padding = 1
+    image_transform = torchvision.transforms.Compose(
+        [torchvision.transforms.Resize((224 // 2 - padding, 224 // 2 - padding), 3),
+         torchvision.transforms.ToTensor()])
+    mask_transform = torchvision.transforms.Compose(
+        [torchvision.transforms.Resize((224 // 2 - padding, 224 // 2 - padding), 3),
+         torchvision.transforms.ToTensor()])
+    ds = {
+        'pascal': pascal_dataloader.DatasetPASCAL,
+        'pascal_det': CanvasDataset
+    }[args.dataset_type](args.base_dir, fold=args.split, image_transform=image_transform, mask_transform=mask_transform,
+                         flipped_order=args.flip, purple=args.purple)
+    model = prepare_model(args.ckpt, arch=args.model)
+    _ = model.to(args.device)
+    # Build the transforms:
+    eval_dict = {'iou': 0, 'color_blind_iou': 0, 'accuracy': 0}
+    for idx in trange(len(ds)):
+        canvas = ds[idx]['grid']
+        if args.dataset_type != 'pascal_det':
+            canvas = (canvas - imagenet_mean[:, None, None]) / imagenet_std[:, None, None]
+        # Calculate the original_image and the result
+        original_image, generated_result = _generate_result_for_canvas(args, model, canvas)
+        if args.output_dir:
+            Image.fromarray(np.uint8(original_image)).save(
+                os.path.join(args.output_dir, f'original_{idx}.png'))
+            Image.fromarray(np.uint8(generated_result)).save(
+                os.path.join(args.output_dir, f'generated_{idx}.png'))
+        if args.purple:
+            original_image = round_image(original_image, [YELLOW, PURPLE])
+        else:
+            original_image = round_image(original_image, [WHITE, BLACK])
+
+        if args.output_dir:
+            Image.fromarray(np.uint8(generated_result)).save(
+                os.path.join(args.output_dir, f'generated_before_rounding_{idx}.png'))
+
+        if args.purple:
+            generated_result = round_image(generated_result, [YELLOW, PURPLE], t=args.t)
+        else:
+            generated_result = round_image(generated_result, [WHITE, BLACK], t=args.t)
+
+        if args.output_dir:
+            Image.fromarray(np.uint8(generated_result)).save(
+                os.path.join(args.output_dir, f'generated_rounded_{idx}.png'))
+
+        if args.task == 'detection':
+            generated_result = to_rectangle(generated_result)
+
+        if args.output_dir:
+            Image.fromarray(np.uint8(original_image)).save(
+                os.path.join(args.output_dir, f'original_{idx}.png'))
+            Image.fromarray(np.uint8(generated_result)).save(
+                os.path.join(args.output_dir, f'generated_fixed_{idx}.png'))
+        if args.purple:
+            current_metric = calculate_metric(args, original_image, generated_result, fg_color=YELLOW, bg_color=PURPLE)
+        else:
+            current_metric = calculate_metric(args, original_image, generated_result, fg_color=WHITE, bg_color=BLACK)
+        with open(os.path.join(args.output_dir, 'log.txt'), 'a') as log:
+            log.write(str(idx) + '\t' + str(current_metric) + '\n')
+        for i, j in current_metric.items():
+            eval_dict[i] += (j / len(ds))
+
+    with open(os.path.join(args.output_dir, 'log.txt'), 'a') as log:
+        log.write('all\t' + str(eval_dict) + '\n')
+            </pre>
+        </div>
+        <div class="adaptations custom-column">
+          <pre class="code-snippet">
+def _generate_result_for_canvas(args, model, canvas):
+    """canvas is already in the right range."""
+    ids_shuffle, len_keep = generate_mask_for_evaluation(args.img_size, args.patch_size)
+
+    _, im_paste, _ = generate_image(canvas.unsqueeze(0).to(args.device), model, ids_shuffle.to(args.device),
+                                    len_keep, args.img_size, args.patch_size, device=str(args.device))
+    canvas = torch.einsum('chw->hwc', canvas)
+    canvas = torch.clip((canvas.cpu().detach() * imagenet_std + imagenet_mean) * 255, 0, 255).int().numpy()
+    assert canvas.shape == im_paste.shape, (canvas.shape, im_paste.shape)
+    return np.uint8(canvas), np.uint8(im_paste)
+
+def evaluate(args):
+    img_size = args.img_size
+    with open(os.path.join(args.output_dir, 'log.txt'), 'w') as log:
+        log.write(str(args) + '\n')
+    padding = 1
+    image_transform = torchvision.transforms.Compose(
+        [torchvision.transforms.Resize((img_size // 2 - padding, img_size // 2 - padding), 3),
+         torchvision.transforms.ToTensor()])
+    mask_transform = torchvision.transforms.Compose(
+        [torchvision.transforms.Resize((img_size // 2 - padding, img_size // 2 - padding), 3),
+         torchvision.transforms.ToTensor()])
+    ds = {
+        'pascal': pascal_dataloader.DatasetPASCAL,
+        'pascal_det': CanvasDataset
+    }[args.dataset_type](args.base_dir, fold=args.split, image_transform=image_transform, mask_transform=mask_transform,
+                         flipped_order=args.flip, purple=args.purple)
+    model = prepare_model(args.ckpt, arch=args.model, resolution=img_size, patches=args.patch_size)
+    _ = model.to(args.device)
+    # Build the transforms:
+    eval_dict = {'iou': 0, 'color_blind_iou': 0, 'accuracy': 0}
+    for idx in trange(len(ds)):
+        canvas = ds[idx]['grid']
+        if args.dataset_type != 'pascal_det':
+            canvas = (canvas - imagenet_mean[:, None, None]) / imagenet_std[:, None, None]
+        # Calculate the original_image and the result
+        original_image, generated_result = _generate_result_for_canvas(args, model, canvas)
+        if args.output_dir:
+            Image.fromarray(np.uint8(original_image)).save(
+                os.path.join(args.output_dir, f'original_{idx}.png'))
+            Image.fromarray(np.uint8(generated_result)).save(
+                os.path.join(args.output_dir, f'generated_{idx}.png'))
+        if args.purple:
+            original_image = round_image(original_image, [YELLOW, PURPLE])
+        else:
+            original_image = round_image(original_image, [WHITE, BLACK])
+
+        if args.output_dir:
+            Image.fromarray(np.uint8(generated_result)).save(
+                os.path.join(args.output_dir, f'generated_before_rounding_{idx}.png'))
+
+        if args.purple:
+            generated_result = round_image(generated_result, [YELLOW, PURPLE], t=args.t)
+        else:
+            generated_result = round_image(generated_result, [WHITE, BLACK], t=args.t)
+
+        if args.output_dir:
+            Image.fromarray(np.uint8(generated_result)).save(
+                os.path.join(args.output_dir, f'generated_rounded_{idx}.png'))
+
+        if args.task == 'detection':
+            generated_result = to_rectangle(generated_result)
+
+        if args.output_dir:
+            Image.fromarray(np.uint8(original_image)).save(
+                os.path.join(args.output_dir, f'original_{idx}.png'))
+            Image.fromarray(np.uint8(generated_result)).save(
+                os.path.join(args.output_dir, f'generated_fixed_{idx}.png'))
+        if args.purple:
+            current_metric = calculate_metric(args, original_image, generated_result, fg_color=YELLOW, bg_color=PURPLE)
+        else:
+            current_metric = calculate_metric(args, original_image, generated_result, fg_color=WHITE, bg_color=BLACK)
+        with open(os.path.join(args.output_dir, 'log.txt'), 'a') as log:
+            log.write(str(idx) + '\t' + str(current_metric) + '\n')
+        for i, j in current_metric.items():
+            eval_dict[i] += (j / len(ds))
+
+    with open(os.path.join(args.output_dir, 'log.txt'), 'a') as log:
+        log.write('all\t' + str(eval_dict) + '\n')
+            </pre>
+        </div>
+      </div>
+
+
+      
+    </div>
+  </section>
+
+
+  <footer class="footer">
+    <div class="container">
+      <div class="content has-text-centered">
+        <a class="icon-link" href="./static/videos/nerfies_paper.pdf">
+          <i class="fas fa-file-pdf"></i>
+        </a>
+        <a class="icon-link" href="https://github.com/keunhong" class="external-link" disabled>
+          <i class="fab fa-github"></i>
+        </a>
+      </div>
+      <div class="columns is-centered">
+        <div class="column is-8">
+          <div class="content">
+            <p>
+              This website is licensed under a <a rel="license"
+                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+                Commons Attribution-ShareAlike 4.0 International License</a>.
+            </p>
+            <p>
+              This means you are free to borrow the <a href="https://github.com/nerfies/nerfies.github.io">source
+                code</a> of this website,
+              we just ask that you link back to this page in the footer.
+              Please remember to remove the analytics code included in the header of the website which
+              you do not want on your website.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+
+</html>
