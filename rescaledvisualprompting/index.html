@@ -845,9 +845,9 @@ def evaluate(args):
             Image.fromarray(np.uint8(generated_result)).save(
                 os.path.join(args.output_dir, f'generated_fixed_{idx}.png'))
         if args.purple:
-            current_metric = calculate_metric(args, original_image, generated_result, fg_color=YELLOW, bg_color=PURPLE)
+            current_metric = calculate_metric(args, original_image, generated_result, img_size, fg_color=YELLOW, bg_color=PURPLE)
         else:
-            current_metric = calculate_metric(args, original_image, generated_result, fg_color=WHITE, bg_color=BLACK)
+            current_metric = calculate_metric(args, original_image, generated_result, img_size, fg_color=WHITE, bg_color=BLACK)
         with open(os.path.join(args.output_dir, 'log.txt'), 'a') as log:
             log.write(str(idx) + '\t' + str(current_metric) + '\n')
         for i, j in current_metric.items():
