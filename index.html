@@ -298,6 +298,122 @@
               </p>
             </td>
           </tr>
+
+          <!-- Sentiment Analysis Project -->
+          <tr onmouseout="sentiment_stop()" onmouseover="sentiment_start()">
+            <td style="padding:20px;width:25%;vertical-align:middle">
+              <div class="one">
+                <div class="two" id='sentiment_image'>
+                  <img src='images/A_5.jpg' width="160" alt="Drug Reviews">
+                </div>
+                <img src='images/A_5.jpg' width="160" alt="Drug Reviews">
+              </div>
+              <script type="text/javascript">
+                function sentiment_start() {
+                  document.getElementById('sentiment_image').style.opacity = "1";
+                }
+                function sentiment_stop() {
+                  document.getElementById('sentiment_image').style.opacity = "0";
+                }
+                sentiment_stop()
+              </script>
+            </td>
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <papertitle>Sentiment Analysis of Drug Reviews Using NLP Techniques</papertitle>
+              <br>
+              <a href="data/ps5.pdf">Project Report</a>
+              <p>
+                In this project, I explored the drugs.com review dataset to analyze user sentiments through advanced Natural Language Processing techniques. Using sentence-transformers for text embeddings and UMAP for dimensionality reduction, I visualized patterns in user reviews. The analysis uncovered meaningful insights into patient feedback on medications, highlighting trends in sentiment and drug efficacy. This project demonstrates my ability to apply machine learning and NLP methods for in-depth text analysis.
+              </p>
+            </td>
+          </tr>
+
+          <!-- Heart Health Project -->
+          <tr onmouseout="heart_stop()" onmouseover="heart_start()">
+            <td style="padding:20px;width:25%;vertical-align:middle">
+              <div class="one">
+                <div class="two" id='heart_image'>
+                  <img src='images/A_3.jpg' width="160" alt="Heart Health">
+                </div>
+                <img src='images/A_3.jpg' width="160" alt="Heart Health">
+              </div>
+              <script type="text/javascript">
+                function heart_start() {
+                  document.getElementById('heart_image').style.opacity = "1";
+                }
+                function heart_stop() {
+                  document.getElementById('heart_image').style.opacity = "0";
+                }
+                heart_stop()
+              </script>
+            </td>
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <papertitle>Heart Health Predictor: Analyzing Risk with Machine Learning</papertitle>
+              <br>
+              <a href="data/Assignment_3.pdf">Project Report</a>
+              <p>
+                In this project, I used a heart attack prediction dataset to develop a machine learning model for identifying high-risk patients. I began by cleaning the data—splitting blood pressure into systolic and diastolic values and encoding categorical variables. I trained a Decision Tree Classifier to predict heart attack risk and identified key lifestyle factors impacting the outcome. I optimized the model using grid search for hyperparameter tuning and further experimented with a Tabular Neural Network using FastAI, comparing its performance to the decision tree.
+              </p>
+            </td>
+          </tr>
+
+          <!-- Wine Clusters Project -->
+          <tr onmouseout="wine_stop()" onmouseover="wine_start()">
+            <td style="padding:20px;width:25%;vertical-align:middle">
+              <div class="one">
+                <div class="two" id='wine_image'>
+                  <img src='images/A_1.jpg' width="160" alt="Wine Clusters">
+                </div>
+                <img src='images/A_1.jpg' width="160" alt="Wine Clusters">
+              </div>
+              <script type="text/javascript">
+                function wine_start() {
+                  document.getElementById('wine_image').style.opacity = "1";
+                }
+                function wine_stop() {
+                  document.getElementById('wine_image').style.opacity = "0";
+                }
+                wine_stop()
+              </script>
+            </td>
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <papertitle>Wine Clusters Uncorked: Dimensionality Reduction Meets K-Means</papertitle>
+              <br>
+              <a href="data/Problem_set_1.pdf">Project Report</a>
+              <p>
+                This project explored unsupervised learning on the Wine dataset, focusing on clustering and dimensionality reduction. I standardized the data and applied K-means clustering to group wines based on their chemical properties. Then, I used Principal Component Analysis (PCA) to reduce the dataset's dimensionality while preserving variance. I visualized the clusters before and after PCA and compared clustering performance using silhouette scores to understand how dimensionality reduction impacts clustering quality.
+              </p>
+            </td>
+          </tr>
+
+          <!-- Web Scraping Project -->
+          <tr onmouseout="scraping_stop()" onmouseover="scraping_start()">
+            <td style="padding:20px;width:25%;vertical-align:middle">
+              <div class="one">
+                <div class="two" id='scraping_image'>
+                  <img src='images/A_4.jpg' width="160" alt="Web Scraping">
+                </div>
+                <img src='images/A_4.jpg' width="160" alt="Web Scraping">
+              </div>
+              <script type="text/javascript">
+                function scraping_start() {
+                  document.getElementById('scraping_image').style.opacity = "1";
+                }
+                function scraping_stop() {
+                  document.getElementById('scraping_image').style.opacity = "0";
+                }
+                scraping_stop()
+              </script>
+            </td>
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <papertitle>Web Scraping: A Multi-Faceted Data Exploration</papertitle>
+              <br>
+              <a href="data/problem_set_4.pdf">Project Report</a>
+              <p>
+                In this diverse project, I tackled three different tasks. First, I visualized penguin species data using Plotnine, creating faceted scatterplots with smoothed trend lines. Next, I worked on a text classification problem, using a large language model (Gemini API) to classify YouTube comments as spam or not, benchmarking it against a no-skill classifier. Finally, I performed web scraping to extract leadership information from California university Wikipedia pages, handling large HTML data and token counts for language model input.
+              </p>
+            </td>
+          </tr>
         </tbody>
       </table>
 
