@@ -26,33 +26,27 @@
               <tr style="padding:0px">
                 <td style="padding:2.5%;width:63%;vertical-align:middle">
                   <p style="text-align:center">
-                    <name>Santiago Barroso</name>
+                    <name>Santiago Barroso Alverde</name>
                   </p>
-                  <p>I am a machine learning researcher and senior Honors CS student at <a href="https://eecs.berkeley.edu/">UC Berkeley</a>.
+                  <p>I am a Grad student at UC Berkeley's Master of Computational Social Science <a href="https://macss.berkeley.edu/">MACSS</a>.
                   </p>
-                  <p>I learned a lot about <a href="images/informal_start.png">panoptic segmentation</a> of satellite images, informal urban sprawl, and entrepreneurship after spending almost a year obsessing over an <a href="data/blackprint_pledge.pdf">idea</a>, advised by
-                    <a href="https://www.linkedin.com/in/grant-ricketts-24422a/">Grant Ricketts</a> and <a
-                      href="https://www.linkedin.com/in/maldonadoalejandro/">Alejandro Maldonado</a>, incubated at <a
-                      href="https://skydeck.berkeley.edu/">SkyDeck</a>, receiving the <a
-                      href="https://twitter.com/AlbyHojel/status/1663569896737763333?s=20">Berkeley's Changemaker
-                      Award</a> at the <a href="http://bigideascontest.org">Big Ideas Competiton</a> and support from <a
-                      href="https://aientrepreneurs.org/">AIEB</a>, only to realize I
-                    lacked the political maneuverability and intuition to deploy it in my home country, Mexico.
+                  <p>I am a Computational Social Science graduate student and Political Economics major at UC Berkeley, blending analytical rigor with an entrepreneurial spirit. I've delved deep into the art of transforming vast geospatial datasets into actionable insights—whether optimizing retail site selection in Mexico City as a Data Scientist at Blackprint Technologies or reimagining traditional cacao cultivation by co-founding a premium chocolate brand. Along the way, my foray into venture capital at IDC Ventures sharpened my financial acumen and strategic thinking, proving that innovation thrives at the intersection of data, creativity, and leadership. Now, I'm returning to first principles, poised to further develop my skills as a creator, developer, and visionary leader.
+                
                   </p>
                   <p>
                     I am now going back to first principles to develop my skills and intuitions as a
                     creator, developer, and leader.
                   </p>
                   <p style="text-align:center">
-                    <a href="mailto:alhojel@gmail.com">Email</a> &nbsp/&nbsp
-                    <a href="https://twitter.com/albyhojel">Twitter</a> &nbsp/&nbsp
-                    <a href="https://linkedin.com/in/albertohojel">LinkedIn</a> &nbsp/&nbsp
-                    <a href="https://github.com/alhojel">GitHub</a>
+                    <a href="mailto:santiagobarroso@berkeley.edu">Email</a> &nbsp/&nbsp
+                    <a href="https://x.com/santibarrosoal">Twitter</a> &nbsp/&nbsp
+                    <a href="https://www.linkedin.com/in/santiagobarroso333/">LinkedIn</a> &nbsp/&nbsp
+                    <a href="https://github.com/barrysblues">GitHub</a>
                   </p>
                 </td>
                 <td style="padding:2.5%;width:40%;max-width:40%">
-                  <a href="images/AlbertoHojel.jpg"><img style="width:100%;max-width:100%" alt="profile photo"
-                      src="images/AlbertoHojel.jpg" class="hoverZoomLink"></a>
+                  <a href="images/Santiago_Barroso.jpg"><img style="width:100%;max-width:100%" alt="profile photo"
+                      src="images/Santiago_Barroso.jpg" class="hoverZoomLink"></a>
                 </td>
               </tr>
             </tbody>
@@ -65,9 +59,9 @@
             <tbody>
               <tr>
                 <td>
-                  <heading>Research</heading>
+                  <heading>Work</heading>
                   <p>
-                    Aligned with <a href="https://en.wikipedia.org/wiki/The_Beginning_of_Infinity">David Deutsch's</a> views, I believe explanations to be the purest form of human achievement.
+                    I feel most fulfilled when developing impactful solutions to real-world problems or when exploring innovative technologies.
                   </p>
                 </td>
               </tr>
@@ -76,251 +70,13 @@
           <table width="100%" align="center" border="0" cellpadding="20">
             <tbody>
 
-              <tr onmouseout="taskvec_stop()" onmouseover="taskvec_start()"  bgcolor="#ffffd0">
-                <td style="padding:20px;width:25%;vertical-align:middle">
-                  <div class="one">
-                    <div class="two" id='taskvec_image'><img src='images/taskvec_end.png' width="160"></div>
-                    <img src='images/taskvec_start.png' width="160">
-                  </div>
-                  <script type="text/javascript">
-                    function taskvec_start() {
-                      document.getElementById('taskvec_image').style.opacity = "1";
-                    }
-
-                    function adversarial_stop() {
-                      document.getElementById('taskvec_image').style.opacity = "0";
-                    }
-                    taskvec_stop()
-                  </script>
-                </td>
-                <td style="padding:20px;width:75%;vertical-align:middle">
-                  <a href="https://arxiv.org/abs/2404.05729">
-                    <papertitle>Finding Visual Task Vectors
-                    </papertitle>
-                  </a>
-                  <br>
-                  <strong>Alberto Hojel</strong>, 
-
-                  <a href="https://yutongbai.com/">Yutong Bai</a>,
-                  <a href="https://people.eecs.berkeley.edu/~trevor/">Trevor Darrell</a>,
-                  <a href="http://www.cs.tau.ac.il/~gamir/">Amir Globerson</a>,
-                  <a href="https://amirbar.net/">Amir Bar</a>,
-                  <br>
-                  <em>ECCV 2024 and Mechanistic Interpretability Workshop ICML 2024</em>
-                  <br>
-                  <a href="https://arxiv.org/abs/2404.05729#">arxiv preprint</a>
-                  /
-                  <a href="https://openreview.net/forum?id=XZ6dLwEZtq">ICML Mech Interp Workshop</a>
-                  /
-                  <a href="https://github.com/alhojel/visual_task_vectors">Github</a>
-                  <p></p>
-                  <p>
-                  We explore the activations of different attention heads in a visual prompting model, MAEVQGAN, and consequently leverage learned representations of tasks to guide the behaviour of the model ultimately improving performance and speed. To do this, we utilize the REIFNORCE algorithm to find optimal patching positions where we clamp the output of particular heads to their mean activations when prompted with the intended task. 
-                  </p>
-                </td>
-              </tr>
-              
-
-              <tr onmouseout="adversarial_stop()" onmouseover="adversarial_start()" >
-                <td style="padding:20px;width:25%;vertical-align:middle">
-                  <div class="one">
-                    <div class="two" id='adversarial_image'><img src='images/adversarial_end.gif' width="160"></div>
-                    <img src='images/adversarial_start.png' width="160">
-                  </div>
-                  <script type="text/javascript">
-                    function adversarial_start() {
-                      document.getElementById('adversarial_image').style.opacity = "1";
-                    }
-
-                    function adversarial_stop() {
-                      document.getElementById('adversarial_image').style.opacity = "0";
-                    }
-                    adversarial_stop()
-                  </script>
-                </td>
-                <td style="padding:20px;width:75%;vertical-align:middle">
-                  <a href="data/convex_polytope.pdf">
-                    <papertitle>Convex Polytopes Are All You Need: To Protect Your Model
-                    </papertitle>
-                  </a>
-                  <br>
-                  <strong>Alberto Hojel</strong>,
-                  <a href="https://ryantabrizi.com/">Ryan Tabrizi</a>,
-                  Heather Ding,
-                  <br>
-                  <em>EECS127/227A: Optimization</em>, Spring 2023
-                  <br>
-                  <a href="data/convex_polytope.pdf">PDF</a>
-                  /
-                  <a href="data/adversarial_examples.pdf">Supplemental Material</a>
-                  <p></p>
-                  <p>
-                    Advised by <a href="http://people.eecs.berkeley.edu/~gireeja/">Gireeja Ranade</a>, we explore previous work in developing provably robust deep neural networks that can defend themselves against adversarial attacks. In the main paper, we explore the use of a convex outer polytope of an input's L-2 norm ball after going through the network to identify whether there are any changes in classification within the outer bound. In the supplemental material, we explore the use of FGSM vs box-constrained L-BFGS in finding adversarial examples. 
-                  </p>
-                </td>
-              </tr>
-
-              <tr onmouseout="quantumnn_stop()" onmouseover="quantumnn_start()">
-                <td style="padding:20px;width:25%;vertical-align:middle">
-                  <div class="one">
-                    <div class="two" id='quantumnn_image'><img src='images/quantumnn_end.gif' width="160"></div>
-                    <img src='images/quantumnn_start.png' width="160">
-                  </div>
-                  <script type="text/javascript">
-                    function quantumnn_start() {
-                      document.getElementById('quantumnn_image').style.opacity = "1";
-                    }
-
-                    function quantumnn_stop() {
-                      document.getElementById('quantumnn_image').style.opacity = "0";
-                    }
-                    quantumnn_stop()
-                  </script>
-                </td>
-                <td style="padding:20px;width:75%;vertical-align:middle">
-                  <a href="data/quantum_nn.pdf">
-                    <papertitle>Binary Classification with QNNs: Leveraging Qiskit's Abstraction Barrier
-                    </papertitle>
-                  </a>
-                  <br>
-                  <strong>Alberto Hojel</strong>,
-                  Harrison Resnick,
-                  Owen Sleigh,
-                  <br>
-                  <em>Physics C191: Quantum Information Science and Technology</em>, Spring 2023
-                  <br>
-                  <a href="data/quantum_nn.pdf">PDF</a>
-                  <p></p>
-                  <p>
-                    Advised by <a href="https://people.eecs.berkeley.edu/~vazirani/">Umesh V. Vazirani</a>, we document our approach to building and benchmarking a Variational Quantum Classifier (VQC) in Qiskit to solve a simple two-dimensional binary classification task with synthetic data. By encoding the training data into the amplitudes of quantum states through a Zero-Pi-Pulse (ZZ) feature map--essentially a parametrized circuit that applies controlled-Z gates to an input quantum state based on the input classical data--and training an ansatz circuit implemented as a Real Amplitudes circuit which manipulates the input quantum state through unitary evolution to minimize the loss.
-                  </p>
-                </td>
-              </tr>
-
-              <tr onmouseout="informal_stop()" onmouseover="informal_start()">
-                <td style="padding:20px;width:25%;vertical-align:middle">
-                  <div class="one">
-                    <div class="two" id='informal_image'><img src='images/informal_end.gif' width="160"></div>
-                    <img src='images/informal_start.png' width="160">
-                  </div>
-                  <script type="text/javascript">
-                    function informal_start() {
-                      document.getElementById('informal_image').style.opacity = "1";
-                    }
-
-                    function informal_stop() {
-                      document.getElementById('informal_image').style.opacity = "0";
-                    }
-                    informal_stop()
-                  </script>
-                </td>
-                <td style="padding:20px;width:75%;vertical-align:middle">
-                  <a href="data/informal.pdf">
-                    <papertitle>Shaping Informal Settlements with Satellite Imagery Analysis and Property Tax
-                    </papertitle>
-                  </a>
-                  <br>
-                  <strong>Alberto Hojel</strong>
-                  <br>
-                  <em>Technology and Society</em>, Spring 2023
-                  <br>
-                  <a href="data/informal.pdf">PDF</a>
-                  <p></p>
-                  <p>
-                    Advised by <a href="https://writing.berkeley.edu/people/michael-larkin">Michael Larkin</a>, I delve into the intricacies of the failing property registry in Mexico and make an argument for how satellite imagery could serve as a tool to turn this around. From a macroeconomic analysis to a survey of the relevant political environment, this research paper identifies and segments the deeply-rooted vicious cycle that Mexican society has suffered from since the Hispanic era. By leveraging deep learning methods for geospatial data analytics from remotely-sensed images, local Mexican governments could observe and detect informal urban sprawl and take steps to set up appropriate infrastructure from the get-go. 
-                  </p>
-                </td>
-              </tr>
-
-              <tr>
-                <td style="padding:20px;width:25%;vertical-align:middle">
-                  <div class="one">
-                    <img src='images/coolclimate_start.png' width="160">
-                  </div>
-                  
-                </td>
-                <td style="padding:20px;width:75%;vertical-align:middle">
-                  <a href="https://coolclimate.org/">
-                    <papertitle>CoolClimate Research Apprentice
-                    </papertitle>
-                  </a>
-                  <br>
-                  <strong>Energy and Resources Group</strong>
-                  <br>
-                  <em>URAP</em>, Aug 2022 - Jan 2023 
-                  <br>
-                  <a href="https://coolclimate.org/">site</a>
-                  
-                  <p>
-                    Advised by <a href="https://erg.berkeley.edu/people/kammen-daniel-m/">Dr. Daniel Kammen</a>, Professor of Energy at Berkeley and contributing author to Nobel Peace Prize-winning IPCC, and <a href="https://coolclimate.berkeley.edu/chris">Chris Jones</a>, Director of the CoolClimate Network, I conducted analysis on consumption-based greenhouse gas accounting, contributing to a modular and serverless web application built on Firebase and ReactJS. Synthesized existing U.S. datasets on climate change, greenhouse gas (GHG) emissions, GHG drivers, household carbon footprints, climate action planning, climate impacts, adaptation, pollution, environmental justice, and individual behavior into a single, data-driven climate action portal called EcoDataLab for U.S. cities and communities. 
-                  </p>
-                </td>
-              </tr>
-
-            </tbody>
-          </table>
-          <table
-            style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
-            <tbody>
-              <tr>
-                <td style="padding:20px;width:100%;vertical-align:middle">
-                  <heading>Work</heading>
-                  <p>
-                    I feel most fulfilled when developing impactful solutions to real-world problems or when messing
-                    around with inspiring new tech.
-                  </p>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <table
-            style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
-            <tbody>
-              <tr onmouseout="briefly_stop()" onmouseover="briefly_start()">
-                <td style="padding:20px;width:25%;vertical-align:middle">
-                  <div class="one">
-                    <div class="two" id='briefly_image'>
-                      <img src='images/briefly_end.gif' width="160">
-                    </div>
-                    <img src='images/briefly_start.png' width="160">
-                  </div>
-                  <script type="text/javascript">
-                    function briefly_start() {
-                      document.getElementById('briefly_image').style.opacity = "1";
-                    }
-
-                    function briefly_stop() {
-                      document.getElementById('briefly_image').style.opacity = "0";
-                    }
-                    briefly_stop()
-                  </script>
-                </td>
-                <td style="padding:20px;width:75%;vertical-align:middle">
-                  <a href="">
-                    <papertitle>Briefly AI</papertitle>
-                  </a>
-                  <br>
-                  <strong>ML Engineer + Cloud Dev</strong>, Summer 2023
-                  <br>
-                  <a href="https://www.brieflyai.com/">page</a>
-                  <br>
-                  <br>
-                  <p>
-                    After presenting a demo of a semantic-search-powered course content repository I built for a class--EECS16B, where we teach students everything that comes behind building a voice-controlled electric vehicle from band-pass filters to control theory to intermediate linear algebra--I was TA-ing at Berkeley for Cerebral Valley's AI Coworking session attendees at Shack15, Bryan and Kathy approached me to talk about their vision for in-meeting AI assistants. We quickly hit it off and I ended up building out their cloud infrastructure to stream Zoom transcripts into GPT-4 to extract key insights and action items.  
-                  </p>
-                  <a href="https://www.djangoproject.com/">Django</a>; <a href="https://aws.amazon.com/">AWS</a>; <a href="https://openai.com/">GPT-4 + text-embeddings</a>; <a href="https://react.dev/">ReactJS</a>; <a href="https://developers.zoom.us/docs/api/rest/webhook-reference/">Zoom Webhooks</a>;
-                  
-                </td>
-              </tr>
-              
-              
-              <tr onmouseout="blackprint_stop()" onmouseover="blackprint_start()"  bgcolor="#ffffd0">
+              <tr onmouseout="blackprint_stop()" onmouseover="blackprint_start()">
                 <td style="padding:20px;width:25%;vertical-align:middle">
                   <div class="one">
                     <div class="two" id='blackprint_image'>
-                      <img src='images/blackprint_end.gif' width="160">
+                      <img src='images/blackprint_end.gif' width="160" alt="Blackprint end">
                     </div>
-                    <img src='images/blackprint_start.png' width="160">
+                    <img src='images/blackprint_start.png' width="160" alt="Blackprint start">
                   </div>
                   <script type="text/javascript">
                     function blackprint_start() {
@@ -334,145 +90,121 @@
                   </script>
                 </td>
                 <td style="padding:20px;width:75%;vertical-align:middle">
-                  <a href="https://drive.google.com/file/d/1kl9EcNoNgcqHra5TvImdz8aqi3VbwBlv/view?usp=sharing">
-                    <papertitle>BlackPrint Technologies</papertitle>
-                  </a>: Remote Sensing + ML for Urban Growth Monitoring 
+                  <papertitle>Blackprint Technologies</papertitle>
                   <br>
-                  <strong>Founder</strong>, Aug 2022 - May 2023
+                  <strong>Data Scientist</strong>, January 2025 - Present
                   <br>
-                  <a href="https://drive.google.com/file/d/1kl9EcNoNgcqHra5TvImdz8aqi3VbwBlv/view?usp=sharing">elevator pitch</a>
-                  /
-                  <a href="data/blackprint_deck.pdf">slide deck</a>
-                  /
-                  <a href="https://twitter.com/AlbyHojel/status/1663569896737763333?s=20">changemaker award</a>
-                  <p></p>
                   <p>
-                    This was my first serious attempt at entrepreneurship. During my time as the founder of BlackPrint Technologies, I sought to confront the multifaceted and technically challenging problem of updating Mexico's property registry. By leveraging AI to extract geospatial data, specifically through semantic segmentation techniques on satellite imagery, we streamlined the process of updating cadastral registries, reducing costs and time significantly. We utilized panoptic segmentation of building footprints from satellite images with a GSD resolution of 30cm/pixel upscaled to 15cm/pixel, and compared the updated building maps to old maps to detect changes. Our innovative approach gained substantial recognition within the Berkeley ecosystem, leading to our admission into Batch 15 of SkyDeck's Startup Incubation Program, winning the Berkeley Changemakers award, and initiating three significant projects. The complexities of working within an environment fraught with corruption and fraud ultimately led me to separate from the startup, but the experience underscored the enormous potential of AI-driven geospatial data analysis.
+                    At Blackprint Technologies, I spearhead innovative geospatial analytics initiatives, leveraging a massive dataset of over 12 million opt-in devices to revolutionize retail site selection and industrial logistics in Mexico City. By developing sophisticated machine learning models and predictive analytics algorithms, I've created powerful tools for forecasting foot traffic trends and customer behavior through advanced geofencing techniques. My work includes engineering interactive dashboards that transform complex spatial data into actionable insights for urban planning and strategic decision-making. Through robust ETL processes and cloud-based analytics platforms, I ensure the integrity and accessibility of our terabyte-scale location data, enabling data-driven solutions that reshape how businesses approach site selection and customer targeting.
                   </p>
                 </td>
               </tr>
 
-              <tr onmouseout="vitrica_stop()" onmouseover="vitrica_start()"  bgcolor="#ffffd0">
+              <!-- Industrial Logistics Hub -->
+              <tr onmouseout="terreno_stop()" onmouseover="terreno_start()">
                 <td style="padding:20px;width:25%;vertical-align:middle">
                   <div class="one">
-                    <div class="two" id='vitrica_image'>
-                      <img src='images/vitrica_end.gif' width="160">
+                    <div class="two" id='terreno_image'>
+                      <img src='images/terreno.jpg' width="160" alt="Terreno">
                     </div>
-                    <img src='images/vitrica_start.png' width="160">
+                    <img src='images/terreno.jpg' width="160" alt="Terreno">
                   </div>
                   <script type="text/javascript">
-                    function vitrica_start() {
-                      document.getElementById('vitrica_image').style.opacity = "1";
+                    function terreno_start() {
+                      document.getElementById('terreno_image').style.opacity = "1";
                     }
-
-                    function vitrica_stop() {
-                      document.getElementById('vitrica_image').style.opacity = "0";
+                    function terreno_stop() {
+                      document.getElementById('terreno_image').style.opacity = "0";
                     }
-                    vitrica_stop()
+                    terreno_stop()
                   </script>
                 </td>
                 <td style="padding:20px;width:75%;vertical-align:middle">
-                  <a href="https://www.vitrica.com/">
-                    <papertitle>Vitrica, S.A. de C.V. </papertitle>
-                  </a>
+                  <papertitle>Industrial Logistics Hub</papertitle>
                   <br>
-                  <strong>Project Manager</strong>, May 2022 - August 2022
+                  <strong>Project Manager</strong>, August 2024 - December 2024
                   <br>
-                  <a href="https://www.vitrica.com/">site</a>
-                  /
-                  <a href="data/vitrica.pdf">slide deck</a>
+                  <a href="data/Plano parcelas (1) (1).pdf">Project Plans</a> /
+                  <a href="data/Nota SLP_VDR 457 (3).pdf">Project Details</a>
                   <p>
-                    In my role as a project manager and tech lead, I developed a robust IoT-based full-lifecycle industrial analytics Platform as a Service (PaaS) specifically designed for the textile manufacturing industry in Mexico. This work presented significant technical challenges, from constructing a modular distributed network for machine digitalization using cutting-edge tools such as ESP32 development boards, Mongoose OS firmware, MQTT protocol, and AWS IoT Core, to engineering a system that could provide advanced analytics and monitoring capabilities like real-time data visualization and predictive maintenance. I implemented a complex data pipeline capable of handling over 753K machine state changes per day from 50 different nodes, transforming these messages into a DynamoDB to enable sophisticated machine learning-driven analytics. Furthermore, I developed a real-time analytics web application that delivered intuitive and interactive dashboards for data-driven decision-making. The entire project required seamless integration, high scalability, and precise quality control, and its successful deployment stands as a testament to the innovative engineering and rigorous problem-solving that characterized this experience.
+                    Led the ambitious development of a 1,129-acre industrial land project in San Luis Potosí, Mexico, strategically positioned at a crucial intersection of transportation infrastructure including highway and railroad access. Orchestrated comprehensive stakeholder engagement, working closely with trust funds and key partners to envision and plan a state-of-the-art industrial development and logistics hub. Conducted extensive market research and analysis to evaluate the site's potential for diverse industrial applications, from logistics to data centers. Successfully managed relationships with potential investors and regulatory agencies, creating a robust foundation for the project's future development.
                   </p>
                 </td>
               </tr>
 
-              <tr onmouseout="allie_stop()" onmouseover="allie_start()">
+              <!-- IDC Ventures -->
+              <tr onmouseout="idc_stop()" onmouseover="idc_start()">
                 <td style="padding:20px;width:25%;vertical-align:middle">
                   <div class="one">
-                    <div class="two" id='allie_image'>
-                      <img src='images/allie_end.gif' width="160">
+                    <div class="two" id='idc_image'>
+                      <img src='images/IDC_Logo.jpg' width="160" alt="IDC Ventures">
                     </div>
-                    <img src='images/allie_start.png' width="160">
+                    <img src='images/IDC_Logo.jpg' width="160" alt="IDC Ventures">
                   </div>
                   <script type="text/javascript">
-                    function allie_start() {
-                      document.getElementById('allie_image').style.opacity = "1";
+                    function idc_start() {
+                      document.getElementById('idc_image').style.opacity = "1";
                     }
-
-                    function allie_stop() {
-                      document.getElementById('allie_image').style.opacity = "0";
+                    function idc_stop() {
+                      document.getElementById('idc_image').style.opacity = "0";
                     }
-                    allie_stop()
+                    idc_stop()
                   </script>
                 </td>
                 <td style="padding:20px;width:75%;vertical-align:middle">
-                  <a href="http://allie.mx/contacto.html">
-                    <papertitle>Allie Alianzas Estratégicas</papertitle>
-                  </a>
+                  <papertitle>IDC Ventures</papertitle>
                   <br>
-                  <strong>Infrastructure Developer</strong>, May 2021 - August 2021
+                  <strong>Venture Capitalist</strong>, April 2023 - December 2023
                   <br>
-                  <a href="http://allie.mx/contacto.html">site</a>
-                  /
-                  <a href="data/allie_sip.pdf">slide deck</a>
-                  /
-                  <a href="data/allie_resultados.pdf">impacts</a>
-                  
+                  <a href="data/IDC_AI_Report.pdf">AI Report</a>
                   <p>
-                    In my tenure as a developer at Allie Cobranza Especializada, I executed the implementation of a cloud-based data analysis platform to optimize debt collection services, addressing an intricate problem that involved a diverse set of technical and analytical challenges. The project required the processing of a comprehensive dataset of 312.7K individual debtors and the employment of advanced analytical techniques, including geospatial analysis methods that enabled the generation of 24.9K accurate street addresses from partial information. Collaborating with cross-functional teams, I designed and implemented web-scraping and data collection software that led to an annual cost savings of $1.5 million and utilized Geographic Information Systems (GIS) to identify poorly registered homes, expanding the total addressable market by over 11%. Furthermore, I was instrumental in improving the collection success rate from 37% to 67% and expediting the payment data processing workflow by a factor of 7x. From developing targeted collection strategies to deploying web-scraping tools, the complexity of the tasks undertaken not only resulted in significant improvements in the company's efficiency but also allowed me to provide valuable insights and recommendations directly to the CTO and government officials, influencing decision-making processes and contributing to broader performance enhancements.
+                    At IDC Ventures, I played a pivotal role in portfolio management and investment analysis, tracking performance metrics across six portfolio companies and preparing detailed monthly reports for three high-potential startups. Engaged in over 100 pitch deck review meetings, evaluating early-stage opportunities across Fintech, SaaS, E-Commerce, and Blockchain sectors. Successfully facilitated connections between IDC and prominent family offices across three continents, contributing to the firm's fund III raise preparations. Led comprehensive market research initiatives and leveraged platforms like Pitchbook to identify promising investment opportunities and strategic partnerships for portfolio companies.
                   </p>
                 </td>
               </tr>
-            </tbody>
-          </table>
 
-
-          <table
-            style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
-            <tbody>
-              <tr>
-                <td style="padding:20px;width:100%;vertical-align:middle">
-                  <heading>Miscellanea</heading>
-                  <p>
-                  </p>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <table
-            style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
-            <tbody>
-
-              <tr>
+              <!-- Finca Don Jorge -->
+              <tr onmouseout="nima_stop()" onmouseover="nima_start()">
                 <td style="padding:20px;width:25%;vertical-align:middle">
                   <div class="one">
-                    <img src='images/16b_start.png' width="160">
+                    <div class="two" id='nima_image'>
+                      <img src='images/NIMA.jpg' width="160" alt="NIMA">
+                    </div>
+                    <img src='images/NIMA.jpg' width="160" alt="NIMA">
                   </div>
-                  
+                  <script type="text/javascript">
+                    function nima_start() {
+                      document.getElementById('nima_image').style.opacity = "1";
+                    }
+                    function nima_stop() {
+                      document.getElementById('nima_image').style.opacity = "0";
+                    }
+                    nima_stop()
+                  </script>
                 </td>
                 <td style="padding:20px;width:75%;vertical-align:middle">
-                  <a href="https://inst.eecs.berkeley.edu/~ee16b/sp23/">
-                    <papertitle>Student Instructor for EECS16B
-                    </papertitle>
-                  </a>
+                  <papertitle>Finca Don Jorge Cacao</papertitle>
                   <br>
-                  Jan 2023 - May 2023 
+                  <strong>Co-Founder</strong>, March 2023 - June 2024
                   <br>
+                  <a href="data/2022.12.08 - Yakaw_Final_Conceptual.pdf">Concept</a> /
+                  <a href="data/Presentacion_identidad_NIMA.pdf">Brand Identity</a> /
+                  <a href="data/YAKAW (1).pdf">Project Overview</a> /
+                  <a href="#" onclick="document.getElementById('videoPlayer').style.display='block'; return false;">Video</a>
+                  <div id="videoPlayer" style="display:none; margin-top: 10px;">
+                    <video width="100%" controls>
+                      <source src="images/Finca_Don_Jorge_Video.mp4" type="video/mp4">
+                      Your browser does not support the video tag.
+                    </video>
+                  </div>
                   <p>
-                    In the Spring of 2023, as an Academic Student Employee for EECS 16B, I led discussions on designing modern information devices and systems, focusing on machine learning, circuit design, control, and signal processing for approximately 60 students per week. I also provided guidance to a class of 417 students, assisting with homework and exam preparation. This role required not only a deep understanding of complex technical concepts but also the ability to communicate these ideas effectively, fostering the growth and development of budding engineers and researchers.
-                    <br>
-                    <br>
-                    <a href="https://eecs16b.streamlit.app/">My AI-powered semantic search engine for course content</a>
-                    <br>
-                    <a href="https://twitter.com/YiMaTweets/status/1576560360731340801">Yi Ma's breakdown of the class</a>
-
+                    Co-founded an innovative premium chocolate brand focused on revitalizing Mexico's cacao cultivation heritage, successfully securing over $30,000 in initial investment. Established strategic partnerships with industry leaders including Ecom Trading and AMCO, while collaborating with top marketing agencies to build a compelling brand presence. Conducted in-depth research alongside renowned cacao experts like Zoi Papalexandratou to develop cutting-edge post-harvest techniques. Successfully pitched the venture to Redwood Ventures and various Angel Investors, demonstrating the project's potential for scaling sustainable cacao production.
                   </p>
                 </td>
               </tr>
+
             </tbody>
           </table>
-          
           <table
             style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
             <tbody>
@@ -488,6 +220,101 @@
           </table>
         </td>
       </tr>
+
+      <!-- Projects Section -->
+      <table width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
+        <tbody>
+          <tr>
+            <td>
+              <heading>Projects</heading>
+              <p>
+                Here are some of my recent research projects and analyses.
+              </p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      
+      <table width="100%" align="center" border="0" cellpadding="20">
+        <tbody>
+          <!-- Bitcoin Project -->
+          <tr onmouseout="bitcoin_stop()" onmouseover="bitcoin_start()">
+            <td style="padding:20px;width:25%;vertical-align:middle">
+              <div class="one">
+                <div class="two" id='bitcoin_image'>
+                  <img src='images/bitcoin.jpg' width="160" alt="Bitcoin">
+                </div>
+                <img src='images/bitcoin.jpg' width="160" alt="Bitcoin">
+              </div>
+            </td>
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <papertitle>Analyzing Bitcoin Price Fluctuations Through Tweets</papertitle>
+              <br>
+              <strong>Data Analysis Project</strong>
+              <br>
+              <a href="data/bitcoin_project.pdf">Project Report</a>
+              <p>
+                In this project, I examined the powerful connection between Elon Musk's tweets and Bitcoin price volatility. By analyzing tweets from 2022 and applying sentiment analysis with TextBlob, I quantified the market's response within 24 hours of each tweet. My findings revealed that Musk's positive tweets typically led to Bitcoin price spikes, while negative ones triggered declines, confirming the hypothesis of significant social media influence on financial markets. This study highlights the outsized impact a single influential figure can have on investor sentiment and cryptocurrency trends.
+              </p>
+            </td>
+          </tr>
+
+          <!-- Housing Project -->
+          <tr onmouseout="housing_stop()" onmouseover="housing_start()">
+            <td style="padding:20px;width:25%;vertical-align:middle">
+              <div class="one">
+                <div class="two" id='housing_image'>
+                  <img src='images/housing.jpg' width="160" alt="Housing">
+                </div>
+                <img src='images/housing.jpg' width="160" alt="Housing">
+              </div>
+            </td>
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <papertitle>Predicting NY Property Prices Through Income and Features</papertitle>
+              <br>
+              <a href="data/Project_Housing.pdf">Project Report</a>
+              <p>
+                In this project, I explored how average income and property features influence real estate prices across New York counties. By merging datasets from the U.S. Bureau of Economic Analysis, World Population Review, and Kaggle, I built a comprehensive view of housing markets. I applied multiple linear regression models, starting with income and county data, then progressively enhancing the model with features like square footage and log transformations. My final model, incorporating income, property size, and county data, achieved an R-squared of 0.596, highlighting the significant role of property characteristics in price prediction.
+              </p>
+            </td>
+          </tr>
+
+          <!-- Deplatforming Project -->
+          <tr onmouseout="deplatforming_stop()" onmouseover="deplatforming_start()">
+            <td style="padding:20px;width:25%;vertical-align:middle">
+              <div class="one">
+                <div class="two" id='deplatforming_image'>
+                  <img src='images/Deplatforming.jpg' width="160" alt="Deplatforming">
+                </div>
+                <img src='images/Deplatforming.jpg' width="160" alt="Deplatforming">
+              </div>
+            </td>
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <papertitle>Deplatforming and the Decline of Misinformation: A Twitter Case Study</papertitle>
+              <br>
+              <a href="data/Twitter_Deplatforming.pdf">Project Report</a>
+              <p>
+                In this project, I explored whether deplatforming after January 6th effectively reduced misinformation on Twitter. Using a Difference-in-Differences (DiD) approach, I analyzed a comprehensive dataset tracking fake and non-fake posts over time, focusing on user groups like "QAnon" and suspended accounts. The results revealed a significant decline in misinformation sharing post-deplatforming, especially among the targeted user groups, with a marked drop in retweets and post initiations. The study underscored the potential of deplatforming as a tool to curb misinformation while raising important questions about content moderation.
+              </p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Attribution - Moved to end -->
+      <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+        <tbody>
+          <tr>
+            <td style="padding:0px">
+              <br>
+              <p style="text-align:right;font-size:small;">
+                Based on <a href="https://github.com/jonbarron/jonbarron_website">Jon Barron's website</a>.
+              </p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </tbody>
   </table>
 </body>
 
